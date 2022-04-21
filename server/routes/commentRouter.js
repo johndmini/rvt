@@ -2,8 +2,19 @@ const express = require('express');
 const commentRouter = express.Router();
 const Comment = require('../models/comment');
 
+// Get all comments to issue by issue ID
+commentRouter.get('/:issueId/comments', (req, res, next) => {
+  Comment.find({ issue: req.params.issueId }, (err, comments) => {
+    if (err) {
+      res.status(500);
+      return next(err);
+    }
+    return res.status(200).send(comments);
+  });
+});
+
 // Add comment to issue by issue ID
-commentRouter.post('/:issueId/comment', (req, res, next) => {
+commentRouter.post('/:issueId/comments', (req, res, next) => {
   req.body.user = req.user._id;
   req.body.issue = req.params.issueId;
   const newComment = new Comment(req.body);
@@ -16,59 +27,35 @@ commentRouter.post('/:issueId/comment', (req, res, next) => {
   });
 });
 
-// // Add vote to issue by Issue ID and only by the creator of the vote
-// issueRouter.post('/:issueId/vote', (req, res, next) => {
-//   req.body.user = req.user._id;
-//   req.body.issue = req.params.issueId;
-//   const newVote = new Vote(req.body);
-//   newVote.save((err, vote) => {
-//     if (err) {
-//       res.status(500);
-//       return next(err);
-//     }
-//     Issue.findOneAndUpdate(
-//       { _id: req.params.issueId },
-//       { $push: { votes: vote } },
-//       { new: true }
-//     )
-//       .populate('votes')
-//       .exec((err, updatedIssue) => {
-//         if (err) {
-//           res.status(500);
-//           return next(err);
-//         }
-//         return res.status(200).send(updatedIssue);
-//       });
-//   });
-// });
+// Edit comment by issue and only by the creator of the comment
+commentRouter.put('/:issueId/comments/:commentId', (req, res, next) => {
+  Comment.findOneAndUpdate(
+    { _id: req.params.commentId, user: req.user._id },
+    req.body,
+    (err, updatedComment) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res.status(200).send(updatedComment);
+    }
+  );
+});
 
-// // find vote by vote id and update the populated object in the votes array only by the vote creator
-// issueRouter.put('/:issueId/vote/:voteId', (req, res, next) => {
-//   Vote.findOneAndUpdate(
-//     { _id: req.params.voteId, user: req.user._id },
-//     { $set: { vote: req.body.vote } },
-//     { new: true },
-//     (err, updatedVote) => {
-//       if (err) {
-//         res.status(500);
-//         return next(err);
-//       }
-//       return res.status(200).send(updatedVote);
-//     }
-//   );
-// });
-
-// // get all the votes in votes array by issueId with the populated object
-// issueRouter.get('/:issueId/votes', (req, res, next) => {
-//   Issue.findOne({ _id: req.params.issueId })
-//     .populate('votes')
-//     .exec((err, issue) => {
-//       if (err) {
-//         res.status(500);
-//         return next(err);
-//       }
-//       return res.status(200).send(issue.votes);
-//     });
-// });
+// Delete comment by issue and only by the creator of the comment
+commentRouter.delete('/:issueId/comments/:commentId', (req, res, next) => {
+  Comment.findOneAndRemove(
+    { _id: req.params.commentId, user: req.user._id },
+    (err, deletedComment) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res
+        .status(200)
+        .send(`Comment deleted by ${req.user.username}`);
+    }
+  );
+});
 
 module.exports = commentRouter;
