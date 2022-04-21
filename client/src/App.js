@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Public from './pages/Public';
 
 import { Box } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -17,7 +18,8 @@ export default function App() {
     addIssue,
     deleteIssue,
     userIssues,
-    editIssue
+    editIssue,
+    userAxios,
   } = useContext(UserContext);
 
   return (
@@ -55,6 +57,15 @@ export default function App() {
                   editIssue={editIssue}
                 />
               )
+            }
+          />
+          <Route
+            path="/public"
+            element={
+              <Public
+                userAxios={userAxios}
+                user={user}
+              />
             }
           />
         </Routes>

@@ -123,6 +123,7 @@ export default function UserProvider(props) {
       value={{
         ...userState,
         userIssues,
+        userAxios,
         signup,
         login,
         logout,

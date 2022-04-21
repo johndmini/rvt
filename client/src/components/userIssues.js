@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import Issue from './issue';
+import EditForm from './EditForm';
 
-import { Box, Typography, Button, TextField } from '@mui/material';
-import { Delete, Edit, Save } from '@mui/icons-material';
+import { Box } from '@mui/material';
 
 export default function UserIssues(props) {
   const { userIssues, deleteIssue, editIssue } = props;
-  console.log(userIssues);
   const [editId, setEditId] = useState(null);
   const [issueElement, setIssueElement] = useState();
 
@@ -28,64 +28,22 @@ export default function UserIssues(props) {
     }));
   };
 
-  const listIssues = userIssues.map((issue) => (
-    <Box key={issue._id} sx={{ mb: '20px' }}>
-      <Typography variant="h5">
-        <u>{issue.title}</u>
-      </Typography>
-      <Typography>{issue.description}</Typography>
-      {editId === issue._id && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: '500px' }}>
-          <TextField
-            label="Title"
-            name="title"
-            value={issueElement.title}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Description"
-            name="description"
-            value={issueElement.description}
-            onChange={handleChange}
-            multiline
-            rows={5}
+  return (
+    <Box>
+      {userIssues.map((issue) => (
+        <Box key={issue._id} sx={{ mb: '20px' }}>
+          <Issue key={issue._id} {...issue} />
+          <EditForm
+            {...issue}
+            toggleEdit={toggleEdit}
+            toggleSave={toggleSave}
+            handleChange={handleChange}
+            editId={editId}
+            issueElement={issueElement}
+            deleteIssue={deleteIssue}
           />
         </Box>
-      )}
-      {editId !== issue._id ? (
-        <Button
-          startIcon={<Edit />}
-          variant="contained"
-          size="small"
-          sx={{ backgroundColor: 'cornflowerblue' }}
-          onClick={() => toggleEdit(issue._id)}
-        >
-          Edit
-        </Button>
-      ) : (
-        <Button
-          startIcon={<Save />}
-          variant="contained"
-          size="small"
-          sx={{ backgroundColor: 'green' }}
-          onClick={() => toggleSave(issue._id, issueElement)}
-        >
-          Save
-        </Button>
-      )}
-      <Button
-        startIcon={<Delete />}
-        variant="contained"
-        size="small"
-        sx={{ backgroundColor: 'red' }}
-        onClick={() => {
-          deleteIssue(issue._id);
-        }}
-      >
-        Delete
-      </Button>
+      ))}
     </Box>
-  ));
-
-  return <Box>{listIssues}</Box>;
+  );
 }
