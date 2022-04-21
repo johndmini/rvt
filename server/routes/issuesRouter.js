@@ -72,7 +72,7 @@ issueRouter.put('/:issueId', (req, res, next) => {
   );
 });
 
-//find issue by issue id, find user id in upvotes and downvotes array
+// upvote Route for userID
 issueRouter.put('/:issueId/upvote', (req, res, next) => {
     Issue.findOneAndUpdate(
       { _id: req.params.issueId },
