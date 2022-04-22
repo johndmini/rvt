@@ -3,9 +3,10 @@ import Nav from './components/Tools/Nav';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Public from './pages/Public';
+import RequireAuth from './components/ProtectedRoutes/RequireAuth';
 
 import { Box } from '@mui/material';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { UserContext } from './context/UserProvider';
 
 export default function App() {
@@ -32,6 +33,16 @@ export default function App() {
             path="/*"
             element={
               token ? (
+                <Navigate to="/profile" />
+              ) : (
+                <Home user={user} signup={signup} login={login} />
+              )
+            }
+          />
+          <Route element={<RequireAuth />}>
+            <Route
+              path="/profile"
+              element={
                 <Profile
                   user={user}
                   addIssue={addIssue}
@@ -40,32 +51,13 @@ export default function App() {
                   editIssue={editIssue}
                   getMyIssues={getMyIssues}
                 />
-              ) : (
-                <Home signup={signup} login={login} />
-              )
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              !token ? (
-                <Home signup={signup} login={login} />
-              ) : (
-                <Profile
-                  user={user}
-                  addIssue={addIssue}
-                  deleteIssue={deleteIssue}
-                  userIssues={userIssues}
-                  editIssue={editIssue}
-                  getMyIssues={getMyIssues}
-                />
-              )
-            }
-          />
-          <Route
-            path="/public"
-            element={<Public userAxios={userAxios} user={user} />}
-          />
+              }
+            />
+            <Route
+              path="/public"
+              element={<Public userAxios={userAxios} user={user} />}
+            />
+          </Route>
         </Routes>
       </Box>
     </BrowserRouter>

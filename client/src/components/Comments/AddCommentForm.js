@@ -6,7 +6,7 @@ const initCommentInput = {
   comment: '',
 };
 
-export default function CommentForm(props) {
+export default function AddCommentForm(props) {
   const { issueId, userAxios, setComments } = props;
   const [commentInput, setCommentInput] = useState(initCommentInput);
 

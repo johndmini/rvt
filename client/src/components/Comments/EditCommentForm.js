@@ -46,6 +46,7 @@ export default function EditCommentForm(props) {
   return (
     <Box>
       <TextField
+        sx={{ mr: '10px', mb: '10px', width: '500px' }}
         multiline
         rows={4}
         name="comment"

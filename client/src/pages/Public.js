@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CommentForm from '../components/Comments/AddCommentForm';
+import AddCommentForm from '../components/Comments/AddCommentForm';
 import EditCommentForm from '../components/Comments/EditCommentForm';
 
 import {
@@ -103,8 +103,19 @@ export default function Public(props) {
 
   return (
     <>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="h3">Welcome To Rock The Vote</Typography>
+      </Box>
       {allIssues.map((issue) => (
-        <Box key={issue._id} sx={{ mb: '20px' }}>
+        <Box
+          key={issue._id}
+          sx={{
+            mb: '20px',
+            p: '20px',
+            backgroundColor: '#89a7d9',
+            borderRadius: '20px',
+          }}
+        >
           <Typography variant="h6">
             <u>{issue.title}</u>
           </Typography>
@@ -172,7 +183,7 @@ export default function Public(props) {
             </ButtonGroup>
             {toggleAddCommentForm === issue._id && (
               <Box sx={{ mb: '20px' }}>
-                <CommentForm
+                <AddCommentForm
                   issueId={issue._id}
                   userAxios={userAxios}
                   setComments={setComments}
@@ -182,7 +193,7 @@ export default function Public(props) {
             {toggleComments === issue._id && (
               <Box>
                 {comments.map((comment) => (
-                  <Box key={comment._id} sx={{ mb: '10px' }}>
+                  <Box key={comment._id} sx={{ mb: '10px', ml: '30px' }}>
                     <Typography variant="subtitle2">
                       {comment.comment}
                     </Typography>
@@ -209,6 +220,7 @@ export default function Public(props) {
                         </Button>
                         <Button
                           startIcon={<Delete />}
+                          color="error"
                           onClick={() =>
                             handleDeleteComment(issue._id, comment._id)
                           }
