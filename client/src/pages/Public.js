@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CommentForm from '../components/Comments/AddCommentForm';
+import EditCommentForm from '../components/Comments/EditCommentForm';
 
 import {
   Box,
@@ -15,6 +16,7 @@ import {
   AddComment,
   Close,
   Edit,
+  Delete,
 } from '@mui/icons-material';
 
 export default function Public(props) {
@@ -22,7 +24,8 @@ export default function Public(props) {
   const [allIssues, setAllIssues] = useState([]);
   const [comments, setComments] = useState([]);
   const [toggleComments, setToggleComments] = useState(null);
-  const [toggleCommentForm, setToggleCommentForm] = useState(null);
+  const [toggleAddCommentForm, setAddToggleCommentForm] = useState(null);
+  const [toggleEditCommentForm, setToggleEditCommentForm] = useState(null);
 
   const getAllIssues = async () => {
     const response = await userAxios.get('/api/issues');
@@ -68,6 +71,21 @@ export default function Public(props) {
         `/api/issues/comments/${id}/comments`
       );
       setComments(response.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleDeleteComment = async (id, commentId) => {
+    try {
+      const response = await userAxios.delete(
+        `/api/issues/comments/${id}/comments/${commentId}`
+      );
+      setComments(
+        comments.map((comment) =>
+          comment._id === commentId ? response.data : comment
+        )
+      );
     } catch (error) {
       console.log(error.response);
     }
@@ -137,18 +155,22 @@ export default function Public(props) {
               </Button>
               <Button
                 startIcon={
-                  toggleCommentForm === issue._id ? <Close /> : <AddComment />
+                  toggleAddCommentForm === issue._id ? (
+                    <Close />
+                  ) : (
+                    <AddComment />
+                  )
                 }
                 onClick={
-                  toggleCommentForm !== issue._id
-                    ? () => setToggleCommentForm(issue._id)
-                    : () => setToggleCommentForm(null)
+                  toggleAddCommentForm !== issue._id
+                    ? () => setAddToggleCommentForm(issue._id)
+                    : () => setAddToggleCommentForm(null)
                 }
               >
-                {toggleCommentForm === issue._id ? 'Close' : 'Add Comment'}
+                {toggleAddCommentForm === issue._id ? 'Close' : 'Add Comment'}
               </Button>
             </ButtonGroup>
-            {toggleCommentForm === issue._id && (
+            {toggleAddCommentForm === issue._id && (
               <Box sx={{ mb: '20px' }}>
                 <CommentForm
                   issueId={issue._id}
@@ -164,14 +186,36 @@ export default function Public(props) {
                     <Typography variant="subtitle2">
                       {comment.comment}
                     </Typography>
+                    {toggleEditCommentForm === comment._id && (
+                      <EditCommentForm
+                        userAxios={userAxios}
+                        {...comment}
+                        issueId={issue._id}
+                        setComments={setComments}
+                        setToggleEditCommentForm={setToggleEditCommentForm}
+                      />
+                    )}
                     {comment.user === user._id && (
-                      <Button
-                        startIcon={<Edit />}
-                        variant="contained"
-                        size="small"
-                      >
-                        Edit
-                      </Button>
+                      <ButtonGroup variant="contained" size="small">
+                        <Button
+                          startIcon={<Edit />}
+                          onClick={
+                            toggleEditCommentForm === comment._id
+                              ? () => setToggleEditCommentForm(null)
+                              : () => setToggleEditCommentForm(comment._id)
+                          }
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          startIcon={<Delete />}
+                          onClick={() =>
+                            handleDeleteComment(issue._id, comment._id)
+                          }
+                        >
+                          Delete
+                        </Button>
+                      </ButtonGroup>
                     )}
                   </Box>
                 ))}

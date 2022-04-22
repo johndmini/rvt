@@ -32,6 +32,7 @@ commentRouter.put('/:issueId/comments/:commentId', (req, res, next) => {
   Comment.findOneAndUpdate(
     { _id: req.params.commentId, user: req.user._id },
     req.body,
+    { new: true },
     (err, updatedComment) => {
       if (err) {
         res.status(500);
