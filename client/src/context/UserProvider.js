@@ -130,6 +130,7 @@ export default function UserProvider(props) {
         addIssue,
         editIssue,
         deleteIssue,
+        getMyIssues,
       }}
     >
       {props.children}

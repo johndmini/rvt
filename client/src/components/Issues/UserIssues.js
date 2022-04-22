@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Issue from './issue';
-import EditForm from './EditForm';
+import React, { useState, useEffect } from 'react';
+import Issue from './Issue';
+import EditForm from './EditIssueForm';
 
 import { Box } from '@mui/material';
 
 export default function UserIssues(props) {
-  const { userIssues, deleteIssue, editIssue } = props;
+  const { userIssues, deleteIssue, editIssue, getMyIssues } = props;
   const [editId, setEditId] = useState(null);
   const [issueElement, setIssueElement] = useState();
 
@@ -27,6 +27,10 @@ export default function UserIssues(props) {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    getMyIssues();
+  }, []);
 
   return (
     <Box>

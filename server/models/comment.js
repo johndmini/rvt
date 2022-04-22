@@ -5,6 +5,10 @@ const CommentSchema = new Schema({
   comment: {
     type: String,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   issue: {
     type: Schema.Types.ObjectId,
     ref: 'Issue',

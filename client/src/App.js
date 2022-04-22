@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Nav from './components/Nav';
+import Nav from './components/Tools/Nav';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Public from './pages/Public';
@@ -20,6 +20,7 @@ export default function App() {
     userIssues,
     editIssue,
     userAxios,
+    getMyIssues,
   } = useContext(UserContext);
 
   return (
@@ -37,6 +38,7 @@ export default function App() {
                   deleteIssue={deleteIssue}
                   userIssues={userIssues}
                   editIssue={editIssue}
+                  getMyIssues={getMyIssues}
                 />
               ) : (
                 <Home signup={signup} login={login} />
@@ -55,18 +57,14 @@ export default function App() {
                   deleteIssue={deleteIssue}
                   userIssues={userIssues}
                   editIssue={editIssue}
+                  getMyIssues={getMyIssues}
                 />
               )
             }
           />
           <Route
             path="/public"
-            element={
-              <Public
-                userAxios={userAxios}
-                user={user}
-              />
-            }
+            element={<Public userAxios={userAxios} user={user} />}
           />
         </Routes>
       </Box>

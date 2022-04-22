@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
+import CommentForm from '../components/Comments/AddCommentForm';
 
-import { Box, Typography, IconButton } from '@mui/material';
-import { ThumbUp, ThumbDown } from '@mui/icons-material';
+import {
+  Box,
+  Typography,
+  IconButton,
+  Button,
+  ButtonGroup,
+} from '@mui/material';
+import {
+  ThumbUp,
+  ThumbDown,
+  ModeComment,
+  AddComment,
+  Close,
+  Edit,
+} from '@mui/icons-material';
 
 export default function Public(props) {
   const { userAxios, user } = props;
   const [allIssues, setAllIssues] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [toggleComments, setToggleComments] = useState(null);
+  const [toggleCommentForm, setToggleCommentForm] = useState(null);
 
   const getAllIssues = async () => {
     const response = await userAxios.get('/api/issues');
     setAllIssues(response.data);
   };
-
-  useEffect(() => {
-    getAllIssues();
-  }, [allIssues.length]);
 
   const handleUpvote = async (id) => {
     const response = await userAxios.put(`/api/issues/${id}/upvote`);
@@ -37,6 +50,20 @@ export default function Public(props) {
     );
   };
 
+  const getComments = async (id) => {
+    const response = await userAxios.get(`/api/issues/comments/${id}/comments`);
+    setComments(response.data);
+  };
+
+  const handleToggleComments = (id) => {
+    getComments(id);
+    setToggleComments(id);
+  };
+
+  useEffect(() => {
+    getAllIssues();
+  }, [allIssues.length]);
+
   return (
     <>
       {allIssues.map((issue) => (
@@ -46,7 +73,7 @@ export default function Public(props) {
           </Typography>
           <Typography variant="subtitle1">{issue.description}</Typography>
           <Box sx={{ display: 'flex' }}>
-            <Box sx={{ p: '10px' }}>
+            <Box sx={{ p: '10px', textAlign: 'center' }}>
               <IconButton
                 onClick={
                   issue.upVotes.includes(user._id)
@@ -60,7 +87,7 @@ export default function Public(props) {
                 {issue.upVotes.length}
               </Typography>
             </Box>
-            <Box sx={{ p: '10px' }}>
+            <Box sx={{ p: '10px', textAlign: 'center' }}>
               <IconButton
                 onClick={
                   issue.downVotes.includes(user._id)
@@ -75,6 +102,63 @@ export default function Public(props) {
               </Typography>
             </Box>
           </Box>
+          <>
+            <ButtonGroup sx={{ mb: '20px' }} variant="contained" size="small">
+              <Button
+                startIcon={<ModeComment />}
+                onClick={
+                  toggleComments !== issue._id
+                    ? () => {
+                        handleToggleComments(issue._id);
+                      }
+                    : () => setToggleComments(null)
+                }
+              >
+                Comments
+              </Button>
+              <Button
+                startIcon={
+                  toggleCommentForm === issue._id ? <Close /> : <AddComment />
+                }
+                onClick={
+                  toggleCommentForm !== issue._id
+                    ? () => setToggleCommentForm(issue._id)
+                    : () => setToggleCommentForm(null)
+                }
+              >
+                {toggleCommentForm === issue._id ? 'Close' : 'Add Comment'}
+              </Button>
+            </ButtonGroup>
+            {toggleCommentForm === issue._id && (
+              <Box sx={{ mb: '20px' }}>
+                <CommentForm
+                  issueId={issue._id}
+                  userAxios={userAxios}
+                  setComments={setComments}
+                />
+              </Box>
+            )}
+            {toggleComments === issue._id && (
+              <Box>
+                {comments.map((comment) => (
+                  <Box key={comment._id} sx={{ mb: '10px' }}>
+                    <Typography variant="subtitle2">
+                      {comment.comment}
+                    </Typography>
+                    {comment.user === user._id && (
+                      <Button
+                        startIcon={<Edit />}
+                        variant="contained"
+                        size="small"
+                      >
+                        Edit
+                      </Button>
+                    )}
+                  </Box>
+                ))}
+              </Box>
+            )}
+          </>
         </Box>
       ))}
     </>

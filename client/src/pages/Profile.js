@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import AddIssueForm from '../components/addIssueForm';
-import UserIssues from '../components/userIssues';
+import AddIssueForm from '../components/Issues/AddIssueForm';
+import UserIssues from '../components/Issues/UserIssues';
 
 import { Box, Typography, Button } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 
 export default function Profile(props) {
-  const { user, addIssue, deleteIssue, userIssues, editIssue } = props;
+  const { user, addIssue, deleteIssue, userIssues, editIssue, getMyIssues } = props;
   const [toggleIssue, setToggleIssue] = useState(false);
 
   return (
@@ -32,6 +32,7 @@ export default function Profile(props) {
             deleteIssue={deleteIssue}
             userIssues={userIssues}
             editIssue={editIssue}
+            getMyIssues={getMyIssues}
           />
         </Box>
       )}

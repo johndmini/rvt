@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Login from '../components/Login';
-import Signup from '../components/Signup';
+import Login from '../components/Auth/Login';
+import Signup from '../components/Auth/Signup';
 
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, Routes, Route } from 'react-router-dom';
