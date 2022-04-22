@@ -116,6 +116,7 @@ export default function UserProvider(props) {
 
   useEffect(() => {
     getMyIssues();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState]);
 
   return (

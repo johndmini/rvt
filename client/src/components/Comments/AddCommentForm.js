@@ -19,12 +19,16 @@ export default function CommentForm(props) {
   };
 
   const handleSubmit = async (id) => {
-    const response = await userAxios.post(
-      `/api/issues/comments/${id}/comments`,
-      commentInput
-    );
-    setCommentInput(initCommentInput);
-    setComments((prevState) => [...prevState, response.data]);
+    try {
+      const response = await userAxios.post(
+        `/api/issues/comments/${id}/comments`,
+        commentInput
+      );
+      setCommentInput(initCommentInput);
+      setComments((prevState) => [...prevState, response.data]);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (

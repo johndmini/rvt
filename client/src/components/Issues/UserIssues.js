@@ -30,6 +30,7 @@ export default function UserIssues(props) {
 
   useEffect(() => {
     getMyIssues();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

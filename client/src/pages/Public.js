@@ -30,29 +30,47 @@ export default function Public(props) {
   };
 
   const handleUpvote = async (id) => {
-    const response = await userAxios.put(`/api/issues/${id}/upvote`);
-    setAllIssues(
-      allIssues.map((issue) => (issue._id === id ? response.data : issue))
-    );
+    try {
+      const response = await userAxios.put(`/api/issues/${id}/upvote`);
+      setAllIssues(
+        allIssues.map((issue) => (issue._id === id ? response.data : issue))
+      );
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const handleDownvote = async (id) => {
-    const response = await userAxios.put(`/api/issues/${id}/downvote`);
-    setAllIssues(
-      allIssues.map((issue) => (issue._id === id ? response.data : issue))
-    );
+    try {
+      const response = await userAxios.put(`/api/issues/${id}/downvote`);
+      setAllIssues(
+        allIssues.map((issue) => (issue._id === id ? response.data : issue))
+      );
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const handleNoVote = async (id) => {
-    const response = await userAxios.put(`/api/issues/${id}/novote`);
-    setAllIssues(
-      allIssues.map((issue) => (issue._id === id ? response.data : issue))
-    );
+    try {
+      const response = await userAxios.put(`/api/issues/${id}/novote`);
+      setAllIssues(
+        allIssues.map((issue) => (issue._id === id ? response.data : issue))
+      );
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const getComments = async (id) => {
-    const response = await userAxios.get(`/api/issues/comments/${id}/comments`);
-    setComments(response.data);
+    try {
+      const response = await userAxios.get(
+        `/api/issues/comments/${id}/comments`
+      );
+      setComments(response.data);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const handleToggleComments = (id) => {
@@ -62,6 +80,7 @@ export default function Public(props) {
 
   useEffect(() => {
     getAllIssues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allIssues.length]);
 
   return (
