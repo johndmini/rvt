@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 
 export default function Public(props) {
-  const { userAxios, user } = props;
+  const { userAxios, user, light } = props;
   const [allIssues, setAllIssues] = useState([]);
   const [comments, setComments] = useState([]);
   const [toggleComments, setToggleComments] = useState(null);
@@ -30,6 +30,19 @@ export default function Public(props) {
   const getAllIssues = async () => {
     const response = await userAxios.get('/api/issues');
     setAllIssues(response.data);
+  };
+
+  // sort allissues by number of upvotes or downvotes
+  const sortIssues = (issues) => {
+    return issues.sort((a, b) => {
+      if (a.upvotes.length > b.upvotes.length) {
+        return -1;
+      }
+      if (a.upvotes.length < b.upvotes.length) {
+        return 1;
+      }
+      return 0;
+    });
   };
 
   const handleUpvote = async (id) => {
@@ -104,7 +117,7 @@ export default function Public(props) {
   return (
     <>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h3" color={'#282b30'} fontFamily="monospace">
+        <Typography variant="h3" fontFamily="monospace">
           Welcome To Rock The Vote
         </Typography>
       </Box>
@@ -114,21 +127,18 @@ export default function Public(props) {
           sx={{
             mb: '20px',
             p: '20px',
-            backgroundColor: '#a6c1ed',
+            backgroundColor: light ? '#a6c1ed' : '#172e42',
             borderRadius: '20px',
           }}
         >
           <Typography
             variant="h6"
-            color={'#282b30'}
             fontWeight="bold"
             sx={{ textDecoration: 'underline' }}
           >
             {issue.title}
           </Typography>
-          <Typography variant="subtitle1" color={'#282b30'}>
-            {issue.description}
-          </Typography>
+          <Typography variant="subtitle1">{issue.description}</Typography>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ p: '10px', textAlign: 'center' }}>
               <IconButton
@@ -140,7 +150,7 @@ export default function Public(props) {
               >
                 <ThumbUp color="success" />
               </IconButton>
-              <Typography variant="subtitle2" color={'#282b30'}>
+              <Typography variant="subtitle2">
                 {issue.upVotes.length}
               </Typography>
             </Box>
@@ -154,7 +164,7 @@ export default function Public(props) {
               >
                 <ThumbDown color="error" />
               </IconButton>
-              <Typography variant="subtitle2" color={'#282b30'}>
+              <Typography variant="subtitle2">
                 {issue.downVotes.length}
               </Typography>
             </Box>
@@ -203,7 +213,7 @@ export default function Public(props) {
               <Box>
                 {comments.map((comment) => (
                   <Box key={comment._id} sx={{ mb: '10px', ml: '30px' }}>
-                    <Typography variant="subtitle2" color={'#282b30'}>
+                    <Typography variant="subtitle2">
                       {comment.comment}
                     </Typography>
                     {toggleEditCommentForm === comment._id && (

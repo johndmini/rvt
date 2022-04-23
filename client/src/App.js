@@ -30,8 +30,13 @@ export default function App() {
     <BrowserRouter>
       <ThemeProvider theme={light ? themeLight : themeDark}>
         <CssBaseline />
-        <Box>
-          <Nav logout={logout} token={token} light={light} setLight={setLight} />
+        <Box sx={{ p: '10px' }}>
+          <Nav
+            logout={logout}
+            token={token}
+            light={light}
+            setLight={setLight}
+          />
           <Routes>
             <Route
               path="/*"
@@ -39,7 +44,12 @@ export default function App() {
                 token ? (
                   <Navigate to="/profile" />
                 ) : (
-                  <Home user={user} signup={signup} login={login} />
+                  <Home
+                    user={user}
+                    signup={signup}
+                    login={login}
+                    light={light}
+                  />
                 )
               }
             />
@@ -54,12 +64,15 @@ export default function App() {
                     userIssues={userIssues}
                     editIssue={editIssue}
                     getMyIssues={getMyIssues}
+                    light={light}
                   />
                 }
               />
               <Route
                 path="/public"
-                element={<Public userAxios={userAxios} user={user} />}
+                element={
+                  <Public userAxios={userAxios} user={user} light={light} />
+                }
               />
             </Route>
           </Routes>

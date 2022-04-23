@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login(props) {
-  const { handleChange, inputs, login } = props;
+  const { handleChange, inputs, login, light } = props;
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -28,6 +28,8 @@ export default function Login(props) {
         required
         value={inputs.username}
         onChange={handleChange}
+        inputProps={{ style: { color: light ? 'black' : 'white' } }}
+        sx={{ backgroundColor: light ? 'white' : 'gray' }}
       />
       <TextField
         label="Password"
@@ -35,11 +37,18 @@ export default function Login(props) {
         required
         value={inputs.password}
         onChange={handleChange}
+        inputProps={{ style: { color: light ? 'black' : 'white' } }}
+        sx={{ backgroundColor: light ? 'white' : 'gray' }}
       />
-      <Button variant="contained" onClick={handleLogin}>Login</Button>
-      <Button variant="contained" onClick={() => navigate('/signup')}>
-        Not a member? Sign up here
-      </Button>
+      <ButtonGroup
+        variant="contained"
+        sx={{ display: 'flex', flexDirection: 'column' }}
+      >
+        <Button onClick={handleLogin}>Login</Button>
+        <Button onClick={() => navigate('/signup')}>
+          Not a member? Sign up here
+        </Button>
+      </ButtonGroup>
     </Box>
   );
 }

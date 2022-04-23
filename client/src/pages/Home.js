@@ -12,7 +12,7 @@ export default function Home(props) {
 
   const [inputs, setInputs] = useState(userInputs);
 
-  const { signup, login } = props;
+  const { signup, login, light } = props;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +42,7 @@ export default function Home(props) {
                 handleChange={handleChange}
                 inputs={inputs}
                 login={login}
+                light={light}
               />
             }
           />
@@ -52,6 +53,7 @@ export default function Home(props) {
                 handleChange={handleChange}
                 inputs={inputs}
                 signup={signup}
+                light={light}
               />
             }
           />

@@ -54,7 +54,7 @@ commentRouter.delete('/:issueId/comments/:commentId', (req, res, next) => {
       }
       return res
         .status(200)
-        .send(`Comment deleted by ${req.user.username}`);
+        .send(`${deletedComment} deleted by ${req.user.username}`);
     }
   );
 });

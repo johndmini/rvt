@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, TextField, Typography, Button } from '@mui/material';
+import { Box, TextField, Typography, Button, FormControl } from '@mui/material';
 
 const initIssueInputs = {
   title: '',
@@ -8,8 +8,11 @@ const initIssueInputs = {
 };
 
 export default function AddIssueForm(props) {
-  const { addIssue } = props;
+  const { addIssue, light } = props;
   const [issueInputs, setIssueInputs] = useState(initIssueInputs);
+  const inputProps = {
+    style: { color: light ? 'black' : 'white' },
+  };
 
   const handleIssueChange = (e) => {
     const { name, value } = e.target;
@@ -33,27 +36,29 @@ export default function AddIssueForm(props) {
         width: '500px',
         m: '0 auto',
         padding: '25px',
-        backgroundColor: 'gray',
+        backgroundColor: light ? 'gray' : '#172e42',
         borderRadius: '10px',
       }}
     >
       <Typography>Submit Issue Form</Typography>
-      <TextField
-        label="Title"
-        name="title"
-        value={issueInputs.title}
-        onChange={handleIssueChange}
-        sx={{ backgroundColor: 'white' }}
-      />
-      <TextField
-        label="Description"
-        name="description"
-        value={issueInputs.description}
-        onChange={handleIssueChange}
-        multiline
-        rows={5}
-        sx={{ backgroundColor: 'white' }}
-      />
+      <FormControl sx={{ backgroundColor: light ? 'white' : 'gray' }}>
+        <TextField
+          label="Title"
+          name="title"
+          value={issueInputs.title}
+          onChange={handleIssueChange}
+          inputProps={inputProps}
+        />
+        <TextField
+          label="Description"
+          name="description"
+          value={issueInputs.description}
+          onChange={handleIssueChange}
+          multiline
+          rows={5}
+          inputProps={inputProps}
+        />
+      </FormControl>
       <Button
         variant="contained"
         size="small"

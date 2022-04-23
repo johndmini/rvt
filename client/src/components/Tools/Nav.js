@@ -25,7 +25,17 @@ export default function Nav(props) {
 
   const navigate = useNavigate();
   return (
-    <Box sx={{ display: 'flex', mb: '100px' }}>
+    <Box
+      sx={{
+        display: {
+          mobile: 'none',
+          tablet: 'none',
+          desktop: 'flex',
+          wide: 'flex',
+        },
+        mb: '100px',
+      }}
+    >
       <Box sx={{ mr: 'auto' }}>
         <Button
           startIcon={<Home />}

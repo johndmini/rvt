@@ -14,6 +14,11 @@ export const themeDark = createTheme({
       wide: 1280,
     },
   },
+  typography: {
+    allVariants: {
+      color: '#fff',
+    },
+  },
 });
 
 export const themeLight = createTheme({
@@ -28,6 +33,11 @@ export const themeLight = createTheme({
       tablet: 768,
       desktop: 1024,
       wide: 1280,
+    },
+  },
+  typography: {
+    allVariants: {
+      color: '#262624',
     },
   },
 });

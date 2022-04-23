@@ -6,14 +6,22 @@ import { Box, Typography, Button } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 
 export default function Profile(props) {
-  const { user, addIssue, deleteIssue, userIssues, editIssue, getMyIssues } = props;
+  const {
+    user,
+    addIssue,
+    deleteIssue,
+    userIssues,
+    editIssue,
+    getMyIssues,
+    light,
+  } = props;
   const [toggleIssue, setToggleIssue] = useState(false);
 
   return (
     <Box sx={{ textAlign: 'center' }}>
       <Typography>Welcome {user.username}</Typography>
       <Box sx={{ mt: '40px' }}>
-        <AddIssueForm addIssue={addIssue} />
+        <AddIssueForm addIssue={addIssue} light={light} />
       </Box>
       <Box sx={{ mt: '40px', mb: '40px' }}>
         <Typography>Your Issues</Typography>
@@ -33,6 +41,7 @@ export default function Profile(props) {
             userIssues={userIssues}
             editIssue={editIssue}
             getMyIssues={getMyIssues}
+            light={light}
           />
         </Box>
       )}
