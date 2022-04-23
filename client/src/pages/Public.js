@@ -104,7 +104,9 @@ export default function Public(props) {
   return (
     <>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h3">Welcome To Rock The Vote</Typography>
+        <Typography variant="h3" color={'#282b30'} fontFamily="monospace">
+          Welcome To Rock The Vote
+        </Typography>
       </Box>
       {allIssues.map((issue) => (
         <Box
@@ -112,14 +114,21 @@ export default function Public(props) {
           sx={{
             mb: '20px',
             p: '20px',
-            backgroundColor: '#89a7d9',
+            backgroundColor: '#a6c1ed',
             borderRadius: '20px',
           }}
         >
-          <Typography variant="h6">
-            <u>{issue.title}</u>
+          <Typography
+            variant="h6"
+            color={'#282b30'}
+            fontWeight="bold"
+            sx={{ textDecoration: 'underline' }}
+          >
+            {issue.title}
           </Typography>
-          <Typography variant="subtitle1">{issue.description}</Typography>
+          <Typography variant="subtitle1" color={'#282b30'}>
+            {issue.description}
+          </Typography>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ p: '10px', textAlign: 'center' }}>
               <IconButton
@@ -131,7 +140,7 @@ export default function Public(props) {
               >
                 <ThumbUp color="success" />
               </IconButton>
-              <Typography variant="subtitle2">
+              <Typography variant="subtitle2" color={'#282b30'}>
                 {issue.upVotes.length}
               </Typography>
             </Box>
@@ -145,7 +154,7 @@ export default function Public(props) {
               >
                 <ThumbDown color="error" />
               </IconButton>
-              <Typography variant="subtitle2">
+              <Typography variant="subtitle2" color={'#282b30'}>
                 {issue.downVotes.length}
               </Typography>
             </Box>
@@ -194,7 +203,7 @@ export default function Public(props) {
               <Box>
                 {comments.map((comment) => (
                   <Box key={comment._id} sx={{ mb: '10px', ml: '30px' }}>
-                    <Typography variant="subtitle2">
+                    <Typography variant="subtitle2" color={'#282b30'}>
                       {comment.comment}
                     </Typography>
                     {toggleEditCommentForm === comment._id && (
