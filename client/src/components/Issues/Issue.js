@@ -22,7 +22,7 @@ export default function Issue(props) {
         <strong>Posted By : </strong>
         {user.username}
       </Typography>
-      <Typography>
+      <Typography variant="subtitle2">
         <strong>Posted On : </strong>
         {new Date(datecreated).toLocaleDateString()}
       </Typography>

@@ -109,10 +109,7 @@ export default function Public(props) {
           Welcome To Rock The Vote
         </Typography>
       </Box>
-      <FunctionsBar
-        setAllIssues={setAllIssues}
-        allIssues={allIssues}
-      />
+      <FunctionsBar setAllIssues={setAllIssues} allIssues={allIssues} />
       {allIssues.map((issue) => (
         <Box
           key={issue._id}
@@ -123,14 +120,22 @@ export default function Public(props) {
             borderRadius: '20px',
           }}
         >
-          <Typography
-            variant="h6"
-            fontWeight="bold"
-            sx={{ textDecoration: 'underline' }}
-          >
-            {issue.title}
-          </Typography>
-          <Typography variant="subtitle1">{issue.description}</Typography>
+          <Box sx={{ display: 'flex' }}>
+            <Box sx={{ mr: 'auto' }}>
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                sx={{ textDecoration: 'underline' }}
+              >
+                {issue.title}
+              </Typography>
+              <Typography variant="subtitle1">{issue.description}</Typography>
+            </Box>
+            <Typography variant="subtitle2">
+              <strong>Posted On: </strong>
+              {new Date(issue.datecreated).toLocaleDateString()}
+            </Typography>
+          </Box>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ p: '10px', textAlign: 'center' }}>
               <IconButton
