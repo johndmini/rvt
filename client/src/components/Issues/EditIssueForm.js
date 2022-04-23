@@ -12,7 +12,12 @@ export default function EditForm(props) {
     issueElement,
     deleteIssue,
     _id,
+    light,
   } = props;
+
+  const inputProps = {
+    style: { color: light ? 'black' : 'white' },
+  };
   return (
     <Box>
       {editId === _id && (
@@ -20,12 +25,14 @@ export default function EditForm(props) {
           <TextField
             label="Title"
             name="title"
+            inputProps={inputProps}
             value={issueElement.title}
             onChange={handleChange}
           />
           <TextField
             label="Description"
             name="description"
+            inputProps={inputProps}
             value={issueElement.description}
             onChange={handleChange}
             multiline

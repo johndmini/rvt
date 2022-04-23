@@ -19,7 +19,7 @@ export default function Profile(props) {
 
   return (
     <Box sx={{ textAlign: 'center' }}>
-      <Typography>Welcome {user.username}</Typography>
+      <Typography>Welcome {user.firstname}!!</Typography>
       <Box sx={{ mt: '40px' }}>
         <AddIssueForm addIssue={addIssue} light={light} />
       </Box>
@@ -41,6 +41,7 @@ export default function Profile(props) {
             userIssues={userIssues}
             editIssue={editIssue}
             getMyIssues={getMyIssues}
+            user={user}
             light={light}
           />
         </Box>

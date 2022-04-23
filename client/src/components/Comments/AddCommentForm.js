@@ -7,7 +7,7 @@ const initCommentInput = {
 };
 
 export default function AddCommentForm(props) {
-  const { issueId, userAxios, setComments } = props;
+  const { issueId, userAxios, setComments, light } = props;
   const [commentInput, setCommentInput] = useState(initCommentInput);
 
   const handleChange = (e) => {
@@ -38,6 +38,7 @@ export default function AddCommentForm(props) {
         multiline
         rows={4}
         name="comment"
+        inputProps={{ style: { color: light ? 'black' : 'white' } }}
         value={commentInput.comment}
         onChange={handleChange}
       />

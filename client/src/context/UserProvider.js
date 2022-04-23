@@ -17,6 +17,7 @@ export default function UserProvider(props) {
     user: JSON.parse(localStorage.getItem('user')) || {},
     token: localStorage.getItem('token') || '',
     issues: [],
+    errMsg: '',
   };
   const [userState, setUserState] = useState(initState);
   const [userIssues, setUserIssues] = useState([]);
@@ -34,7 +35,7 @@ export default function UserProvider(props) {
           token: res.data.token,
         }));
       })
-      .catch((err) => console.log(err.response.data.errMsg));
+      .catch((err) => handleAuthErr(err.response.data.errMsg));
   };
 
   // login function
@@ -50,7 +51,7 @@ export default function UserProvider(props) {
           token: res.data.token,
         }));
       })
-      .catch((err) => console.log(err.response.data.errMsg));
+      .catch((err) => handleAuthErr(err.response.data.errMsg));
   };
 
   // logout function
@@ -62,6 +63,13 @@ export default function UserProvider(props) {
       user: {},
       token: '',
       issues: [],
+    }));
+  };
+
+  const handleAuthErr = (errMsg) => {
+    setUserState((prevState) => ({
+      ...prevState,
+      errMsg,
     }));
   };
 
@@ -116,7 +124,7 @@ export default function UserProvider(props) {
 
   useEffect(() => {
     getMyIssues();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState]);
 
   return (

@@ -62,9 +62,11 @@ export default function Nav(props) {
               Profile
             </Button>
           )}
-          <Button startIcon={<Public />} onClick={() => navigate('/public')}>
-            Public
-          </Button>
+          {token && (
+            <Button startIcon={<Public />} onClick={() => navigate('/public')}>
+              Public
+            </Button>
+          )}
           {token && (
             <Button startIcon={<LogoutRounded />} onClick={handleLogout}>
               Logout

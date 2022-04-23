@@ -4,7 +4,7 @@ import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login(props) {
-  const { handleChange, inputs, login, light } = props;
+  const { handleLoginChange, inputs, login, light, errMsg } = props;
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -21,13 +21,14 @@ export default function Login(props) {
         m: '0 auto',
       }}
     >
-      <Typography>This is the login page</Typography>
+      <Typography color="red">{errMsg}</Typography>
       <TextField
         label="Username"
         name="username"
         required
+        autoComplete="off"
         value={inputs.username}
-        onChange={handleChange}
+        onChange={handleLoginChange}
         inputProps={{ style: { color: light ? 'black' : 'white' } }}
         sx={{ backgroundColor: light ? 'white' : 'gray' }}
       />
@@ -35,8 +36,9 @@ export default function Login(props) {
         label="Password"
         name="password"
         required
+        type="password"
         value={inputs.password}
-        onChange={handleChange}
+        onChange={handleLoginChange}
         inputProps={{ style: { color: light ? 'black' : 'white' } }}
         sx={{ backgroundColor: light ? 'white' : 'gray' }}
       />

@@ -127,7 +127,7 @@ export default function Public(props) {
           sx={{
             mb: '20px',
             p: '20px',
-            backgroundColor: light ? '#a6c1ed' : '#172e42',
+            backgroundColor: light ? '#a6c1ed' : '#2c4963',
             borderRadius: '20px',
           }}
         >
@@ -206,6 +206,7 @@ export default function Public(props) {
                   issueId={issue._id}
                   userAxios={userAxios}
                   setComments={setComments}
+                  light={light}
                 />
               </Box>
             )}

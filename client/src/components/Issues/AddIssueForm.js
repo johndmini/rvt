@@ -36,7 +36,7 @@ export default function AddIssueForm(props) {
         width: '500px',
         m: '0 auto',
         padding: '25px',
-        backgroundColor: light ? 'gray' : '#172e42',
+        backgroundColor: light ? 'gray' : '#2c4963',
         borderRadius: '10px',
       }}
     >
@@ -48,6 +48,7 @@ export default function AddIssueForm(props) {
           value={issueInputs.title}
           onChange={handleIssueChange}
           inputProps={inputProps}
+          InputLabelProps={inputProps}
         />
         <TextField
           label="Description"
@@ -57,6 +58,7 @@ export default function AddIssueForm(props) {
           multiline
           rows={5}
           inputProps={inputProps}
+          InputLabelProps={inputProps}
         />
       </FormControl>
       <Button

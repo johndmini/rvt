@@ -17,6 +17,7 @@ export default function App() {
     login,
     user,
     token,
+    errMsg,
     logout,
     addIssue,
     deleteIssue,
@@ -48,6 +49,7 @@ export default function App() {
                     user={user}
                     signup={signup}
                     login={login}
+                    errMsg={errMsg}
                     light={light}
                   />
                 )

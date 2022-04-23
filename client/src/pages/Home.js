@@ -6,17 +6,34 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate, Routes, Route } from 'react-router-dom';
 
 const userInputs = { username: '', password: '' };
+const initSignUpInputs = {
+  username: '',
+  password: '',
+  confirmPassword: '',
+  email: '',
+  firstname: '',
+  lastname: '',
+};
 
 export default function Home(props) {
   const navigate = useNavigate();
 
   const [inputs, setInputs] = useState(userInputs);
+  const [signUpInputs, setSignUpInputs] = useState(initSignUpInputs);
 
-  const { signup, login, light } = props;
+  const { signup, login, light, errMsg } = props;
 
-  const handleChange = (e) => {
+  const handleLoginChange = (e) => {
     const { name, value } = e.target;
     setInputs((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSignupChange = (e) => {
+    const { name, value } = e.target;
+    setSignUpInputs((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -39,10 +56,11 @@ export default function Home(props) {
             path="login"
             element={
               <Login
-                handleChange={handleChange}
+                handleLoginChange={handleLoginChange}
                 inputs={inputs}
                 login={login}
                 light={light}
+                errMsg={errMsg}
               />
             }
           />
@@ -50,10 +68,11 @@ export default function Home(props) {
             path="signup"
             element={
               <Signup
-                handleChange={handleChange}
-                inputs={inputs}
+                handleSignupChange={handleSignupChange}
+                signUpInputs={signUpInputs}
                 signup={signup}
                 light={light}
+                errMsg={errMsg}
               />
             }
           />

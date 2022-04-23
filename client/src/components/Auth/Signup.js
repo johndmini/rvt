@@ -11,7 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup(props) {
-  const { handleChange, inputs, signup, light } = props;
+  const { handleSignupChange, signUpInputs, signup, light, errMsg } = props;
   const inputProps = {
     style: { color: light ? 'black' : 'white' },
   };
@@ -19,7 +19,11 @@ export default function Signup(props) {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    signup(inputs);
+    if (signUpInputs.password !== signUpInputs.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    signup(signUpInputs);
   };
 
   return (
@@ -27,25 +31,69 @@ export default function Signup(props) {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        width: '300px',
+        width: '350px',
+        backgroundColor: light ? 'gray' : '#2c4963',
         m: '0 auto',
+        p: '25px',
       }}
     >
-      <Typography>This is the signup page</Typography>
+      <Typography color="red">{errMsg}</Typography>
       <FormControl sx={{ backgroundColor: light ? 'white' : 'gray' }}>
         <TextField
           label="Username"
           name="username"
-          value={inputs.username}
+          required
+          autoComplete="off"
+          value={signUpInputs.username}
           inputProps={inputProps}
-          onChange={handleChange}
+          onChange={handleSignupChange}
         />
         <TextField
           label="Password"
           name="password"
-          value={inputs.password}
+          required
+          autoComplete="off"
+          type="password"
+          value={signUpInputs.password}
           inputProps={inputProps}
-          onChange={handleChange}
+          onChange={handleSignupChange}
+        />
+        <TextField
+          label="Confirm Password"
+          name="confirmPassword"
+          required
+          autoComplete="off"
+          type="password"
+          value={signUpInputs.confirmPassword}
+          inputProps={inputProps}
+          onChange={handleSignupChange}
+        />
+        <TextField
+          label="Email"
+          name="email"
+          required
+          autoComplete="off"
+          value={signUpInputs.email}
+          inputProps={inputProps}
+          onChange={handleSignupChange}
+        />
+        <TextField
+          label="First Name"
+          name="firstname"
+          required
+          autoComplete="off"
+          value={signUpInputs.firstname}
+          inputProps={inputProps}
+          onChange={handleSignupChange}
+        />
+        <TextField
+          label="Last Name"
+          name="lastname"
+          required
+          autoComplete="off"
+          value={signUpInputs.lastname}
+          inputProps={inputProps}
+          onChange={handleSignupChange}
         />
       </FormControl>
       <ButtonGroup
