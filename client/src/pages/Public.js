@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddCommentForm from '../components/Comments/AddCommentForm';
 import EditCommentForm from '../components/Comments/EditCommentForm';
+import FunctionsBar from '../components/Tools/FunctionsBar';
 
 import {
   Box,
@@ -30,19 +31,6 @@ export default function Public(props) {
   const getAllIssues = async () => {
     const response = await userAxios.get('/api/issues');
     setAllIssues(response.data);
-  };
-
-  // sort allissues by number of upvotes or downvotes
-  const sortIssues = (issues) => {
-    return issues.sort((a, b) => {
-      if (a.upvotes.length > b.upvotes.length) {
-        return -1;
-      }
-      if (a.upvotes.length < b.upvotes.length) {
-        return 1;
-      }
-      return 0;
-    });
   };
 
   const handleUpvote = async (id) => {
@@ -121,6 +109,10 @@ export default function Public(props) {
           Welcome To Rock The Vote
         </Typography>
       </Box>
+      <FunctionsBar
+        setAllIssues={setAllIssues}
+        allIssues={allIssues}
+      />
       {allIssues.map((issue) => (
         <Box
           key={issue._id}
