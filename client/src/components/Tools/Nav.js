@@ -29,7 +29,7 @@ export default function Nav(props) {
       sx={{
         display: {
           mobile: 'none',
-          tablet: 'none',
+          tablet: 'flex',
           desktop: 'flex',
           wide: 'flex',
         },

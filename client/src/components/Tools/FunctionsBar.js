@@ -6,6 +6,15 @@ import {
   ArrowCircleUpTwoTone,
 } from '@mui/icons-material';
 
+const ButtonSx = {
+  fontSize: {
+    mobile: '9px',
+    tablet: '10px',
+    desktop: '12px',
+    wide: '13px',
+  }
+};
+
 export default function FunctionsBar(props) {
   const { allIssues, setAllIssues } = props;
 
@@ -37,14 +46,16 @@ export default function FunctionsBar(props) {
 
   return (
     <Box sx={{ display: 'block', textAlign: 'center', m: '10px' }}>
-      <ButtonGroup variant="contained" size="small">
+      <ButtonGroup variant="contained">
         <Button
+          sx={ButtonSx}
           startIcon={<ArrowCircleUpTwoTone />}
           onClick={() => sortIssuesUp(allIssues)}
         >
           Sort by Upvotes
         </Button>
         <Button
+          sx={ButtonSx}
           startIcon={<ArrowCircleDownTwoTone />}
           onClick={() => sortIssuesDown(allIssues)}
         >

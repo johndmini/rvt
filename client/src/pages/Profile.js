@@ -24,7 +24,6 @@ export default function Profile(props) {
         <AddIssueForm addIssue={addIssue} light={light} />
       </Box>
       <Box sx={{ mt: '40px', mb: '40px' }}>
-        <Typography>Your Issues</Typography>
         <Button
           startIcon={!toggleIssue ? <Add /> : <Remove />}
           variant="contained"

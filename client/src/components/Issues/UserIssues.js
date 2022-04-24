@@ -5,10 +5,11 @@ import EditForm from './EditIssueForm';
 import { Box } from '@mui/material';
 
 export default function UserIssues(props) {
-  const { userIssues, deleteIssue, editIssue, getMyIssues, light, user } = props;
+  const { userIssues, deleteIssue, editIssue, getMyIssues, light, user } =
+    props;
   const [editId, setEditId] = useState(null);
   const [issueElement, setIssueElement] = useState();
-  
+
   const toggleEdit = (id) => {
     setEditId(id);
     const issue = userIssues.find((issue) => issue._id === id);
@@ -41,7 +42,7 @@ export default function UserIssues(props) {
           sx={{
             mb: '20px',
             p: '10px',
-            backgroundColor: light ? 'gray' : '#172e42',
+            backgroundColor: light ? '#a6c1ed' : '#2c4963',
             borderRadius: '10px',
           }}
         >

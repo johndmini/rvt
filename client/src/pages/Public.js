@@ -20,6 +20,54 @@ import {
   Delete,
 } from '@mui/icons-material';
 
+const ButtonSx = {
+  fontSize: {
+    mobile: '9px',
+    tablet: '10px',
+    desktop: '12px',
+    wide: '13px',
+  },
+};
+
+const ButtonGroupSx = {
+  mb: {
+    mobile: '7px',
+    tablet: '10px',
+    desktop: '15px',
+    wide: '15px',
+  },
+};
+
+const CommentSx = {
+  mb: '10px',
+  ml: '30px',
+  width: {
+    mobile: '290px',
+    tablet: '620px',
+    desktop: '920px',
+    wide: '1020px',
+  },
+};
+
+const BannerSx = {
+  typography: {
+    mobile: 'h5',
+    tablet: 'h5',
+    desktop: 'h3',
+    wide: 'h3',
+  },
+};
+
+const TitleSx = {
+  textDecoration: 'underline',
+  typography: {
+    mobile: 'subtitle1',
+    tablet: 'subtitle1',
+    desktop: 'h6',
+    wide: 'h6',
+  },
+};
+
 export default function Public(props) {
   const { userAxios, user, light } = props;
   const [allIssues, setAllIssues] = useState([]);
@@ -105,7 +153,7 @@ export default function Public(props) {
   return (
     <>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h3" fontFamily="monospace">
+        <Typography sx={BannerSx} fontFamily="monospace">
           Welcome To Rock The Vote
         </Typography>
       </Box>
@@ -122,17 +170,10 @@ export default function Public(props) {
         >
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ mr: 'auto' }}>
-              <Typography
-                variant="h6"
-                fontWeight="bold"
-                sx={{ textDecoration: 'underline' }}
-              >
-                {issue.title}
-              </Typography>
-              <Typography variant="subtitle1">{issue.description}</Typography>
+              <Typography sx={TitleSx}><strong>{issue.title}</strong></Typography>
+              <Typography variant="subtitle2">{issue.description}</Typography>
             </Box>
             <Typography variant="subtitle2">
-              <strong>Posted On: </strong>
               {new Date(issue.datecreated).toLocaleDateString()}
             </Typography>
           </Box>
@@ -167,8 +208,9 @@ export default function Public(props) {
             </Box>
           </Box>
           <>
-            <ButtonGroup sx={{ mb: '20px' }} variant="contained" size="small">
+            <ButtonGroup sx={ButtonGroupSx} variant="contained" size="small">
               <Button
+                sx={ButtonSx}
                 startIcon={<ModeComment />}
                 onClick={
                   toggleComments !== issue._id
@@ -181,6 +223,7 @@ export default function Public(props) {
                 Comments
               </Button>
               <Button
+                sx={ButtonSx}
                 startIcon={
                   toggleAddCommentForm === issue._id ? (
                     <Close />
@@ -210,8 +253,8 @@ export default function Public(props) {
             {toggleComments === issue._id && (
               <Box>
                 {comments.map((comment) => (
-                  <Box key={comment._id} sx={{ mb: '10px', ml: '30px' }}>
-                    <Typography variant="subtitle2">
+                  <Box key={comment._id} sx={CommentSx}>
+                    <Typography variant="subtitle2" paragraph>
                       {comment.comment}
                     </Typography>
                     {toggleEditCommentForm === comment._id && (
@@ -226,6 +269,7 @@ export default function Public(props) {
                     {comment.user === user._id && (
                       <ButtonGroup variant="contained" size="small">
                         <Button
+                          sx={ButtonSx}
                           startIcon={<Edit />}
                           onClick={
                             toggleEditCommentForm === comment._id
@@ -236,6 +280,7 @@ export default function Public(props) {
                           Edit
                         </Button>
                         <Button
+                          sx={ButtonSx}
                           startIcon={<Delete />}
                           color="error"
                           onClick={() =>

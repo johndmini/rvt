@@ -6,6 +6,32 @@ const initCommentInput = {
   comment: '',
 };
 
+const ButtonSx = {
+  fontSize: {
+    mobile: '9px',
+    tablet: '10px',
+    desktop: '12px',
+    wide: '13px',
+  },
+  width: {
+    mobile: '120px',
+    tablet: '120px',
+    desktop: '150px',
+    wide: '150px',
+  },
+};
+
+const TextFieldSX = {
+  display: 'flex',
+  flexDirection: 'column',
+  width: {
+    mobile: '320px',
+    tablet: '500px',
+    desktop: '500px',
+    wide: '500px',
+  },
+};
+
 export default function AddCommentForm(props) {
   const { issueId, userAxios, setComments, light } = props;
   const [commentInput, setCommentInput] = useState(initCommentInput);
@@ -32,18 +58,22 @@ export default function AddCommentForm(props) {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', width: '500px' }}>
+    <Box sx={TextFieldSX}>
       <TextField
         label="Add Comments"
         multiline
         rows={4}
         name="comment"
-        inputProps={{ style: { color: light ? 'black' : 'white' } }}
+        inputProps={{
+          style: { color: light ? 'black' : 'white' },
+          maxLength: 500,
+        }}
+        helperText={`${commentInput.comment.length}/500`}
         value={commentInput.comment}
         onChange={handleChange}
       />
       <Button
-        sx={{ width: '150px' }}
+        sx={ButtonSx}
         variant="contained"
         size="small"
         onClick={() => handleSubmit(issueId)}
