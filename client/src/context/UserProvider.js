@@ -14,8 +14,8 @@ userAxios.interceptors.request.use((config) => {
 
 export default function UserProvider(props) {
   const initState = {
-    user: JSON.parse(localStorage.getItem('user')) || {},
-    token: localStorage.getItem('token') || '',
+    user: {} || JSON.parse(localStorage.getItem('user')),
+    token: '' || localStorage.getItem('token'),
     issues: [],
     errMsg: '',
   };
@@ -25,7 +25,7 @@ export default function UserProvider(props) {
   // signup function
   const signup = (credentials) => {
     axios
-      .post('/auth/signup', credentials)
+      .post(`https://johnd-rvt.herokuapp.com/auth/signup`, credentials)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -41,7 +41,7 @@ export default function UserProvider(props) {
   // login function
   const login = (credentials) => {
     axios
-      .post('/auth/login', credentials)
+      .post('https://johnd-rvt.herokuapp.com/auth/login', credentials)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -76,7 +76,7 @@ export default function UserProvider(props) {
   // add issue function with interceptor
   const addIssue = (issue) => {
     userAxios
-      .post('/api/issues', issue)
+      .post('https://johnd-rvt.herokuapp.com/api/issues', issue)
       .then((res) => {
         setUserState((prevState) => ({
           ...prevState,
@@ -89,7 +89,7 @@ export default function UserProvider(props) {
   // edit issue function with interceptor
   const editIssue = (id, updateIssue) => {
     userAxios
-      .put(`/api/issues/${id}`, updateIssue)
+      .put(`https://johnd-rvt.herokuapp.com/api/issues/${id}`, updateIssue)
       .then((res) => {
         setUserState((prevState) => ({
           ...prevState,
@@ -104,7 +104,7 @@ export default function UserProvider(props) {
   // delete issue function with interceptor
   const deleteIssue = (id) => {
     userAxios
-      .delete(`/api/issues/${id}`)
+      .delete(`https://johnd-rvt.herokuapp.com/api/issues/${id}`)
       .then((res) => {
         setUserState((prevState) => ({
           ...prevState,
@@ -117,7 +117,9 @@ export default function UserProvider(props) {
   // get issues created by user
   const getMyIssues = () => {
     userAxios
-      .get(`/api/issues/user/${userState.user._id}`)
+      .get(
+        `https://johnd-rvt.herokuapp.com/api/issues/user/${userState.user._id}`
+      )
       .then((res) => setUserIssues(res.data))
       .catch((err) => console.log(err.response.data.errMsg));
   };

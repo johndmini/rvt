@@ -54,15 +54,4 @@ authRouter.post('/login', (req, res, next) => {
   });
 });
 
-// Get all users
-authRouter.get('/users', (req, res, next) => {
-  User.find({}, (err, users) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    return res.status(200).send(users);
-  });
-});
-
 module.exports = authRouter;

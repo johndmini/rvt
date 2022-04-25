@@ -77,13 +77,17 @@ export default function Public(props) {
   const [toggleEditCommentForm, setToggleEditCommentForm] = useState(null);
 
   const getAllIssues = async () => {
-    const response = await userAxios.get('/api/issues');
+    const response = await userAxios.get(
+      'https://johnd-rvt.herokuapp.com/api/issues'
+    );
     setAllIssues(response.data);
   };
 
   const handleUpvote = async (id) => {
     try {
-      const response = await userAxios.put(`/api/issues/${id}/upvote`);
+      const response = await userAxios.put(
+        `https://johnd-rvt.herokuapp.com/api/issues/${id}/upvote`
+      );
       setAllIssues(
         allIssues.map((issue) => (issue._id === id ? response.data : issue))
       );
@@ -94,7 +98,9 @@ export default function Public(props) {
 
   const handleDownvote = async (id) => {
     try {
-      const response = await userAxios.put(`/api/issues/${id}/downvote`);
+      const response = await userAxios.put(
+        `https://johnd-rvt.herokuapp.com/api/issues/${id}/downvote`
+      );
       setAllIssues(
         allIssues.map((issue) => (issue._id === id ? response.data : issue))
       );
@@ -105,7 +111,9 @@ export default function Public(props) {
 
   const handleNoVote = async (id) => {
     try {
-      const response = await userAxios.put(`/api/issues/${id}/novote`);
+      const response = await userAxios.put(
+        `https://johnd-rvt.herokuapp.com/api/issues/${id}/novote`
+      );
       setAllIssues(
         allIssues.map((issue) => (issue._id === id ? response.data : issue))
       );
@@ -117,7 +125,7 @@ export default function Public(props) {
   const getComments = async (id) => {
     try {
       const response = await userAxios.get(
-        `/api/issues/comments/${id}/comments`
+        `https://johnd-rvt.herokuapp.com/api/issues/comments/${id}/comments`
       );
       setComments(response.data);
     } catch (error) {
@@ -128,7 +136,7 @@ export default function Public(props) {
   const handleDeleteComment = async (id, commentId) => {
     try {
       const response = await userAxios.delete(
-        `/api/issues/comments/${id}/comments/${commentId}`
+        `https://johnd-rvt.herokuapp.com/api/issues/comments/${id}/comments/${commentId}`
       );
       setComments(
         comments.map((comment) =>
@@ -170,7 +178,9 @@ export default function Public(props) {
         >
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ mr: 'auto' }}>
-              <Typography sx={TitleSx}><strong>{issue.title}</strong></Typography>
+              <Typography sx={TitleSx}>
+                <strong>{issue.title}</strong>
+              </Typography>
               <Typography variant="subtitle2">{issue.description}</Typography>
             </Box>
             <Typography variant="subtitle2">

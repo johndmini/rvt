@@ -74,7 +74,7 @@ export default function EditCommentForm(props) {
   const handleSubmit = async (id, commentId) => {
     try {
       const response = await userAxios.put(
-        `/api/issues/comments/${id}/comments/${commentId}`,
+        `https://johnd-rvt.herokuapp.com/api/issues/comments/${id}/comments/${commentId}`,
         commentInput
       );
       setCommentInput(response.data.comment);

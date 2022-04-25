@@ -4,15 +4,14 @@ const expressjwt = require('express-jwt');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const PORT = process.env.PORT || 9000;
+dotenv.config();
 
 app.use(express.json());
 app.use(morgan('dev'));
 
-const allowedDomains = [
-  'https://johndemployment-tracker.netlify.app',
-  'http://localhost:3000',
-];
+const allowedDomains = ['http://localhost:3000'];
 
 app.use(
   cors({
@@ -27,18 +26,22 @@ app.use(
   })
 );
 
-app.use('/auth', require('./routes/authRouter.js'));
-app.use(
-  '/api',
-  expressjwt({ secret: process.env.SECRET, algorithms: ['HS256'] })
-);
-app.use('/api/issues', require('./routes/issuesRouter.js'));
-app.use('/api/issues/comments', require('./routes/commentRouter.js'));
+app.get('/', (req, res) => {
+  res.send('Test Deployment Success');
+});
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/rvt',
   console.log('connected to db')
 );
+
+app.use(
+  '/api',
+  expressjwt({ secret: process.env.SECRET, algorithms: ['HS256'] })
+);
+app.use('/auth', require('./routes/authRouter.js'));
+app.use('/api/issues', require('./routes/issuesRouter.js'));
+app.use('/api/issues/comments', require('./routes/commentRouter.js'));
 
 app.use((err, req, res, next) => {
   console.log(err);
