@@ -11,7 +11,10 @@ dotenv.config();
 app.use(express.json());
 app.use(morgan('dev'));
 
-const allowedDomains = ['http://localhost:3000'];
+const allowedDomains = [
+  'https://johnd-rvt.netlify.app',
+  'http://localhost:3000',
+];
 
 app.use(
   cors({
