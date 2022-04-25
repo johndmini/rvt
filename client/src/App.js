@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Nav from './components/Tools/Nav';
+import NavMobile from './components/Tools/NavMobile';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Public from './pages/Public';
@@ -33,6 +34,12 @@ export default function App() {
         <CssBaseline />
         <Box sx={{ p: '10px' }}>
           <Nav
+            logout={logout}
+            token={token}
+            light={light}
+            setLight={setLight}
+          />
+          <NavMobile
             logout={logout}
             token={token}
             light={light}

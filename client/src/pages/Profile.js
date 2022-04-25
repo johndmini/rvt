@@ -5,6 +5,17 @@ import UserIssues from '../components/Issues/UserIssues';
 import { Box, Typography, Button } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 
+const ButtonSx = {
+  mt: '40px',
+  mb: '40px',
+  fontSize: {
+    mobile: '9px',
+    tablet: '10px',
+    desktop: '12px',
+    wide: '13px',
+  },
+};
+
 export default function Profile(props) {
   const {
     user,
@@ -23,16 +34,15 @@ export default function Profile(props) {
       <Box sx={{ mt: '40px' }}>
         <AddIssueForm addIssue={addIssue} light={light} />
       </Box>
-      <Box sx={{ mt: '40px', mb: '40px' }}>
-        <Button
-          startIcon={!toggleIssue ? <Add /> : <Remove />}
-          variant="contained"
-          size="small"
-          onClick={() => setToggleIssue((prevState) => !prevState)}
-        >
-          {!toggleIssue ? 'Show Issues' : 'Hide Issues'}
-        </Button>
-      </Box>
+      <Button
+        startIcon={!toggleIssue ? <Add /> : <Remove />}
+        sx={ButtonSx}
+        variant="contained"
+        size="small"
+        onClick={() => setToggleIssue((prevState) => !prevState)}
+      >
+        {!toggleIssue ? 'Show Issues' : 'Hide Issues'}
+      </Button>
       {toggleIssue && (
         <Box sx={{ textAlign: 'left' }}>
           <UserIssues

@@ -97,6 +97,7 @@ export default function EditForm(props) {
           size="small"
           sx={{
             backgroundColor: 'cornflowerblue',
+            mr: '10px',
             fontSize: {
               mobile: '9px',
               tablet: '10px',
@@ -115,6 +116,7 @@ export default function EditForm(props) {
           size="small"
           sx={{
             backgroundColor: 'green',
+            mr: '10px',
             fontSize: {
               mobile: '9px',
               tablet: '10px',
