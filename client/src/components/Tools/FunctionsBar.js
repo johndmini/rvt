@@ -12,7 +12,7 @@ const ButtonSx = {
     tablet: '10px',
     desktop: '12px',
     wide: '13px',
-  }
+  },
 };
 
 export default function FunctionsBar(props) {
@@ -49,6 +49,7 @@ export default function FunctionsBar(props) {
       <ButtonGroup variant="contained">
         <Button
           sx={ButtonSx}
+          size="small"
           startIcon={<ArrowCircleUpTwoTone />}
           onClick={() => sortIssuesUp(allIssues)}
         >
@@ -56,6 +57,7 @@ export default function FunctionsBar(props) {
         </Button>
         <Button
           sx={ButtonSx}
+          size="small"
           startIcon={<ArrowCircleDownTwoTone />}
           onClick={() => sortIssuesDown(allIssues)}
         >
