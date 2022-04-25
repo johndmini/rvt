@@ -65,6 +65,9 @@ export default function NavMobile(props) {
           desktop: 'none',
           wide: 'none',
         },
+        backgroundColor: light ? '#a6c1ed' : '#2c4963',
+        borderRadius: '5px',
+        mb: '50px',
       }}
     >
       <Box sx={{ mr: 'auto' }}>

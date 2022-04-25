@@ -34,12 +34,15 @@ export default function Nav(props) {
           wide: 'flex',
         },
         mb: '100px',
+        backgroundColor: light ? '#a6c1ed' : '#2c4963',
+        p: '10px',
+        borderRadius: '5px',
       }}
     >
       <Box sx={{ mr: 'auto' }}>
         <Button
           startIcon={<Home />}
-          variant="outlined"
+          variant="contained"
           size="small"
           onClick={() => navigate('/')}
         >
@@ -47,7 +50,7 @@ export default function Nav(props) {
         </Button>
       </Box>
       <Box>
-        <ButtonGroup size="small">
+        <ButtonGroup variant="contained">
           <Switch
             icon={<DarkMode />}
             checkedIcon={<LightMode />}
@@ -57,18 +60,27 @@ export default function Nav(props) {
           {token && (
             <Button
               startIcon={<AccountCircle />}
+              size="small"
               onClick={() => navigate('/profile')}
             >
               Profile
             </Button>
           )}
           {token && (
-            <Button startIcon={<Public />} onClick={() => navigate('/public')}>
+            <Button
+              startIcon={<Public />}
+              size="small"
+              onClick={() => navigate('/public')}
+            >
               Public
             </Button>
           )}
           {token && (
-            <Button startIcon={<LogoutRounded />} onClick={handleLogout}>
+            <Button
+              startIcon={<LogoutRounded />}
+              size="small"
+              onClick={handleLogout}
+            >
               Logout
             </Button>
           )}
