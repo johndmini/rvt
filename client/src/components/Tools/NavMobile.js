@@ -57,7 +57,16 @@ export default function NavMobile(props) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        display: {
+          mobile: 'flex',
+          tablet: 'none',
+          desktop: 'none',
+          wide: 'none',
+        },
+      }}
+    >
       <Box sx={{ mr: 'auto' }}>
         <IconButton
           id="fade-button"
